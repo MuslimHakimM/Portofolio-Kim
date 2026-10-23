@@ -39,6 +39,7 @@ import {
   ZoomIn,
   ChevronLeft,
 } from 'lucide-react';
+import { EMBEDDED_CV_PDF_BASE64, EMBEDDED_CV_PAGES } from './cvData';
 
 // ============================================================================
 // 1. EXACT PERSONAL DATA (PORTFOLIO_DATA)
@@ -101,18 +102,10 @@ export const PORTFOLIO_DATA = {
     heroSkills: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'REST API', 'PWA'],
     // Easily customizable avatar URL (currently extracted from your attached PDF)
     avatarUrl: '/assets/portfolio/profile_hakim.png',
-    cvPdfUrl: '/assets/aistudio/Porto_Hakim_ffbdf3b6.pdf',
-    pdfSlidePages: [
-      '/assets/portfolio/pages/page_01.png',
-      '/assets/portfolio/pages/page_02.png',
-      '/assets/portfolio/pages/page_03.png',
-      '/assets/portfolio/pages/page_04.png',
-      '/assets/portfolio/pages/page_05.png',
-      '/assets/portfolio/pages/page_06.png',
-      '/assets/portfolio/pages/page_07.png',
-      '/assets/portfolio/pages/page_08.png',
-      '/assets/portfolio/pages/page_09.png',
-      '/assets/portfolio/pages/page_10.png',
+    cvPdfUrl: '/CV_Muslim_Hakim_Muhammad.pdf',
+    cvPages: [
+      '/assets/portfolio/cv/cv_page_01.png',
+      '/assets/portfolio/cv/cv_page_02.png',
     ],
     stats: [
       {
@@ -757,6 +750,58 @@ export default function App() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  // Helper: Verified CV PDF Download (checks %PDF- magic bytes & falls back to embedded binary PDF)
+  const handleDownloadCv = async (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    try {
+      const response = await fetch(PORTFOLIO_DATA.profile.cvPdfUrl);
+      if (response.ok) {
+        const buffer = await response.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        // Check '%PDF-' magic header (0x25, 0x50, 0x44, 0x46, 0x2D)
+        const isValidPdf =
+          bytes.length > 5 &&
+          bytes[0] === 0x25 &&
+          bytes[1] === 0x50 &&
+          bytes[2] === 0x44 &&
+          bytes[3] === 0x46 &&
+          bytes[4] === 0x2d;
+
+        if (isValidPdf) {
+          const blob = new Blob([buffer], { type: 'application/pdf' });
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = 'CV_Muslim_Hakim_Muhammad.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+          return;
+        }
+      }
+    } catch {
+      // Fall through to embedded binary PDF fallback
+    }
+
+    // Fallback: decode embedded base64 CV PDF so it always downloads a valid PDF
+    const binaryString = window.atob(EMBEDDED_CV_PDF_BASE64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = 'CV_Muslim_Hakim_Muhammad.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+  };
+
   // Helper: Build formatted message for WhatsApp / Mailto
   const getFormattedContactText = () => {
     const senderName = contactForm.name.trim() || 'Prospective Collaborator';
@@ -864,7 +909,10 @@ export default function App() {
           <div className="flex items-center gap-3 shrink-0">
             <button
               type="button"
-              onClick={() => setShowCvModal(true)}
+              onClick={() => {
+                setCvSlideIndex(0);
+                setShowCvModal(true);
+              }}
               className="px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all cursor-pointer whitespace-nowrap shrink-0"
             >
               Download CV
@@ -1130,16 +1178,16 @@ export default function App() {
                   {PORTFOLIO_DATA.profile.aboutDescription}
                 </p>
 
-                {/* Action Bar: Direct Download PDF + Interactive Preview Modal + View Projects */}
+                {/* Action Bar: Direct Download CV PDF + Interactive CV Preview Modal */}
                 <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <a
-                    href={PORTFOLIO_DATA.profile.cvPdfUrl}
-                    download="Portfolio_Muslim_Hakim_Muhammad.pdf"
-                    className="px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_0_24px_rgba(99,102,241,0.3)] flex items-center gap-2 transition-all whitespace-nowrap shrink-0"
+                  <button
+                    type="button"
+                    onClick={handleDownloadCv}
+                    className="px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_0_24px_rgba(99,102,241,0.3)] flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download CV / Portfolio PDF</span>
-                  </a>
+                    <span>Download CV</span>
+                  </button>
 
                   <button
                     type="button"
@@ -1150,7 +1198,7 @@ export default function App() {
                     className="px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800/80 hover:bg-slate-800 border border-white/10 hover:border-indigo-500/40 flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0"
                   >
                     <Eye className="w-4 h-4 text-indigo-400" />
-                    <span>Preview Portfolio Slides</span>
+                    <span>Preview CV</span>
                   </button>
                 </div>
               </div>
@@ -2171,7 +2219,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* ====================================================================
-          MODAL 3: PORTFOLIO PDF / CV SLIDE PREVIEW & DOWNLOAD MODAL
+          MODAL 3: CV PREVIEW & DOWNLOAD MODAL
       ==================================================================== */}
       <AnimatePresence>
         {showCvModal && (
@@ -2189,7 +2237,7 @@ export default function App() {
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-5xl rounded-2xl bg-[#090524] border border-white/15 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col"
+              className="w-full max-w-4xl rounded-2xl bg-[#090524] border border-white/15 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col"
             >
               {/* Top Bar */}
               <div className="px-6 py-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 shrink-0">
@@ -2197,42 +2245,65 @@ export default function App() {
                   <FileText className="w-5 h-5 text-indigo-400" />
                   <div>
                     <h3 className="font-display text-base sm:text-lg font-bold text-white">
-                      Muslim Hakim Muhammad — Official Portfolio PDF
+                      Muslim Hakim Muhammad — Curriculum Vitae (CV)
                     </h3>
                     <p className="text-xs font-mono text-slate-400">
-                      Slide {cvSlideIndex + 1} of {PORTFOLIO_DATA.profile.pdfSlidePages.length}
+                      Page {cvSlideIndex + 1} of {PORTFOLIO_DATA.profile.cvPages.length}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <a
-                    href={PORTFOLIO_DATA.profile.cvPdfUrl}
-                    download="Portfolio_Muslim_Hakim_Muhammad.pdf"
-                    className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 flex items-center gap-1.5 transition-all whitespace-nowrap shrink-0"
+                  <button
+                    type="button"
+                    onClick={handleDownloadCv}
+                    className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download Original PDF</span>
-                  </a>
+                    <span>Download CV PDF</span>
+                  </button>
                   <button
                     type="button"
                     onClick={() => setShowCvModal(false)}
                     className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                    aria-label="Close PDF preview"
+                    aria-label="Close CV preview"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Slide Viewer */}
-              <div className="p-6 overflow-y-auto space-y-4">
-                <div className="relative rounded-xl overflow-hidden bg-slate-950 border border-white/10 aspect-video flex items-center justify-center">
+              {/* CV Page Viewer */}
+              <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
+                {/* Page Switcher Tabs */}
+                <div className="flex items-center justify-center gap-2">
+                  {PORTFOLIO_DATA.profile.cvPages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCvSlideIndex(idx)}
+                      className={`px-4 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer shrink-0 ${cvSlideIndex === idx
+                          ? 'bg-indigo-600 text-white font-semibold shadow-[0_0_16px_rgba(99,102,241,0.35)]'
+                          : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
+                        }`}
+                    >
+                      Page {idx + 1}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="relative rounded-xl overflow-hidden bg-white border border-white/10 max-w-2xl mx-auto shadow-2xl">
                   <img
-                    src={PORTFOLIO_DATA.profile.pdfSlidePages[cvSlideIndex]}
-                    alt={`Portfolio PDF Slide ${cvSlideIndex + 1}`}
+                    src={PORTFOLIO_DATA.profile.cvPages[cvSlideIndex]}
+                    alt={`CV Muslim Hakim Muhammad - Page ${cvSlideIndex + 1}`}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const fallback = EMBEDDED_CV_PAGES[cvSlideIndex];
+                      if (fallback && e.currentTarget.src !== fallback) {
+                        e.currentTarget.src = fallback;
+                      }
+                    }}
+                    className="w-full h-auto object-contain block"
                   />
 
                   {/* Prev / Next Controls */}
@@ -2240,11 +2311,11 @@ export default function App() {
                     type="button"
                     onClick={() =>
                       setCvSlideIndex((prev) =>
-                        prev === 0 ? PORTFOLIO_DATA.profile.pdfSlidePages.length - 1 : prev - 1
+                        prev === 0 ? PORTFOLIO_DATA.profile.cvPages.length - 1 : prev - 1
                       )
                     }
-                    aria-label="Previous slide"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/15 transition-colors cursor-pointer"
+                    aria-label="Previous CV page"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/75 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/15 transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
@@ -2253,31 +2324,14 @@ export default function App() {
                     type="button"
                     onClick={() =>
                       setCvSlideIndex(
-                        (prev) => (prev + 1) % PORTFOLIO_DATA.profile.pdfSlidePages.length
+                        (prev) => (prev + 1) % PORTFOLIO_DATA.profile.cvPages.length
                       )
                     }
-                    aria-label="Next slide"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/15 transition-colors cursor-pointer"
+                    aria-label="Next CV page"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/75 hover:bg-indigo-600 text-white flex items-center justify-center border border-white/15 transition-colors cursor-pointer"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
-                </div>
-
-                {/* Slide Selector Strip */}
-                <div className="flex items-center justify-center gap-2 overflow-x-auto py-1">
-                  {PORTFOLIO_DATA.profile.pdfSlidePages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setCvSlideIndex(idx)}
-                      className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer shrink-0 ${cvSlideIndex === idx
-                          ? 'bg-indigo-600 text-white font-semibold'
-                          : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
-                        }`}
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </button>
-                  ))}
                 </div>
               </div>
             </motion.div>
