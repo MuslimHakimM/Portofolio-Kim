@@ -67,14 +67,12 @@ export interface CertificateItem {
   title: string;
   issuer: string;
   issueDate: string;
-  validUntil?: string;
   credentialId: string;
   image: string;
   secondaryImage?: string;
   secondaryLabel?: string;
   highlights: string[];
   verifyUrl: string;
-  pdfUrl?: string;
 }
 
 export interface TechSkillItem {
@@ -289,112 +287,86 @@ export const PORTFOLIO_DATA = {
       secondaryImage: '/assets/portfolio/cert_bangkit_transcript.png',
       secondaryLabel: 'Student Learning Achievement Transcript',
       highlights: [
-        'Associate Android Developer Prep (Score: 100)',
-        'Capstone / Final Project (Score: 93)',
-        'Android Fundamental (Score: 80)',
-        'Soft skill & Career Development (Score: 76)',
-        'Kotlin Basic (Score: 74)',
-        'Android Programming for Beginners (Score: 74)',
-        'Intermediate Android Development (Score: 72)',
-        'Build Android Apps using Jetpack Compose (Score: 72)',
-        'UX Design (Score: 72)',
-        'SOLID Paradigm (Score: 68)',
+        'Kotlin Basic',
+        'Android Programming for Beginners',
+        'Android Fundamental',
+        'Intermediate Android Development',
+        'Jetpack Compose',
+        'UX Design',
+        'SOLID Paradigm',
+        'Associate Android Developer Prep',
+        'Capstone Project',
       ],
       verifyUrl: 'https://grow.google/intl/id_id/bangkit/',
-      pdfUrl: '/assets/certificates/cert_bangkit.pdf',
     },
     {
       id: 'cert-intermediate',
       number: '02',
       title: 'Belajar Pengembangan Aplikasi Android Intermediate',
-      issuer: 'Dicoding Indonesia (Google Developers Authorized Training Partner)',
-      issueDate: '29 Juni 2023',
-      validUntil: '29 Juni 2026',
-      credentialId: '4EXGN1699ZRL',
+      issuer: 'Dicoding Indonesia',
+      issueDate: 'June 29, 2023',
+      credentialId: '4EXGNM99ZRL',
       image: '/assets/portfolio/cert_android_intermediate.png',
       highlights: [
-        'Advanced UI: Custom View, Widget & WebView (11h 50m)',
-        'Animation: Property Animation & MotionLayout (8h 10m)',
-        'Localization & Accessibility Support (11h 35m)',
-        'Service & Background Thread Processing (5h 20m)',
-        'Media Management: Audio, Video, CameraX & Multipart Upload (13h 10m)',
-        'Geo Location, Google Maps API & Geofencing (7h 20m)',
-        'Advanced Testing: Unit Testing (Test Double) & UI Testing (Idling Resource, MockWebServer)',
-        'Advanced Database: Architecture Components & TDD (9h 50m)',
-        'Firebase Integration: Auth, Realtime DB, Cloud Messaging/FCM',
-        'Final Submission: Story App with Paging 3 (Total: 150 Hours)',
+        'Custom Views & Canvas Animation',
+        'Localization & Accessibility',
+        'Media Player, CameraX & ExoPlayer',
+        'Geo-Location & Google Maps API',
+        'Paging 3 & Room PagingSource',
+        'Advanced Unit & UI Testing',
       ],
-      verifyUrl: 'https://www.dicoding.com/certificates/4EXGN1699ZRL',
-      pdfUrl: '/assets/certificates/cert_android_intermediate.pdf',
+      verifyUrl: 'https://www.dicoding.com/certificates/4EXGNM99ZRL',
     },
     {
       id: 'cert-fundamental',
       number: '03',
       title: 'Belajar Fundamental Aplikasi Android',
-      issuer: 'Dicoding Indonesia (Google Developers Authorized Training Partner)',
-      issueDate: '15 Oktober 2022',
-      validUntil: '15 Oktober 2025',
+      issuer: 'Dicoding Indonesia',
+      issueDate: 'October 15, 2022',
       credentialId: '6RPN6358RP2M',
       image: '/assets/portfolio/cert_android_fundamental.png',
       highlights: [
-        'Android Studio & Components Installation (5h 10m)',
-        'Fundamental: Activity, Intent, Fragment & Debugging (16h 55m)',
-        'Layout: View & ViewGroup, Style & Theme, ViewBinding (18h 20m)',
-        'Navigation: Navigation Component, Action Bar, Drawer, Bottom Nav & ViewPager2 (12h 45m)',
-        'Background Process & Networking: JSON REST API, Retrofit2 & OkHttp (9h 35m)',
-        'Android Architecture Components: ViewModel & LiveData (8h 50m)',
-        'Testing: Automated Unit Testing & Instrumentation Testing (4h 20m)',
-        'Local Data Persistence: File Storage, DataStore & Room Database (25h 50m)',
-        'Background Task & Scheduler: AlarmManager & WorkManager (11h 40m)',
-        'Final Submission: App with Web API & Local Database (Total: 150 Hours)',
+        'Fragments & Navigation Component',
+        'Background Thread & Coroutines',
+        'Networking with Retrofit2 & OkHttp',
+        'Android Architecture Components (ViewModel & LiveData)',
+        'Room Local Database & DataStore',
+        'WorkManager & BroadcastReceiver',
       ],
       verifyUrl: 'https://www.dicoding.com/certificates/6RPN6358RP2M',
-      pdfUrl: '/assets/certificates/cert_android_fundamental.pdf',
     },
     {
       id: 'cert-kotlin',
       number: '04',
       title: 'Memulai Pemrograman Dengan Kotlin',
-      issuer: 'Dicoding Indonesia (Google Developers Authorized Training Partner)',
-      issueDate: '07 Oktober 2023',
-      validUntil: '07 Oktober 2026',
-      credentialId: '0LZ0Q54LNZ65',
+      issuer: 'Dicoding Indonesia',
+      issueDate: 'August 25, 2022',
+      credentialId: 'N9ZO7JAL0ZG5',
       image: '/assets/portfolio/cert_kotlin.png',
       highlights: [
-        'Kotlin Ecosystem, Tools Setup & Gradle Kotlin DSL (4h 30m)',
-        'Gradle Structure, Dependencies & Plugin Configuration (5h)',
-        'Kotlin Fundamental: Data Types, Null Safety & String Templates (5h)',
-        'Control Flow: Expressions, When, Enumeration & Loops (4h)',
-        'Data Classes, Collections & Sequences (4h 30m)',
-        'Functional Programming: Lambda, Higher-Order, Extensions & Scope Functions (7h 30m)',
-        'Object-Oriented Programming (Inheritance, Interfaces, Generics, Overloading) (7h 20m)',
-        'Kotlin Generics & Variance (2h 30m)',
-        'Kotlin Coroutines: Concurrency, Deadlock, Livelock & Race Condition Handling (5h 25m)',
-        'Final Submission: Kotlin Concurrency Project & Exam (Total: 50 Hours)',
+        'Kotlin Fundamental & Control Flow',
+        'Data Classes, Collections & Sequences',
+        'Functional Programming (Lambda & Higher-Order Functions)',
+        'Object-Oriented Programming (Inheritance, Interfaces, Generics)',
+        'Kotlin Coroutines & Concurrency Basics',
       ],
-      verifyUrl: 'https://www.dicoding.com/certificates/0LZ0Q54LNZ65',
-      pdfUrl: '/assets/certificates/cert_kotlin.pdf',
+      verifyUrl: 'https://www.dicoding.com/certificates/N9ZO7JAL0ZG5',
     },
     {
       id: 'cert-git',
       number: '05',
       title: 'Belajar Dasar Git dengan GitHub',
       issuer: 'Dicoding Indonesia',
-      issueDate: '14 Agustus 2022',
-      validUntil: '14 Agustus 2025',
-      credentialId: '72ZDOR3LQXYW',
+      issueDate: 'August 14, 2022',
+      credentialId: '72ZDOR8LQXYW',
       image: '/assets/portfolio/cert_git.png',
       highlights: [
-        'Git & GitHub Industry Fundamentals (1h 45m)',
-        'Repository Management, Commits & Checkout (2h 5m)',
-        'Branching Concepts, Merging & Merge Conflict Resolution (2h 10m)',
-        'Team Collaboration: Forking, Squashing Changes & Code Reviews (2h 50m)',
-        'Case Study: Collaborative Pull Requests on Active Repositories (1h 15m)',
-        'GitHub as Professional Portfolio: Markdown Readme Documentation (1h 20m)',
-        'Final Submission: Practical Repository & Final Exam (Total: 15 Hours)',
+        'Git Repository & Commit Lifecycle',
+        'Branching, Merging & Conflict Resolution',
+        'GitHub Remote Collaboration & Pull Requests',
+        'Code Review & Team Version Control Workflows',
       ],
-      verifyUrl: 'https://www.dicoding.com/certificates/72ZDOR3LQXYW',
-      pdfUrl: '/assets/certificates/cert_git.pdf',
+      verifyUrl: 'https://www.dicoding.com/certificates/72ZDOR8LQXYW',
     },
   ] as CertificateItem[],
 
@@ -873,9 +845,8 @@ export default function App() {
                     e.preventDefault();
                     scrollToSection(item.id);
                   }}
-                  className={`relative py-1 transition-colors whitespace-nowrap shrink-0 ${
-                    isActive ? 'text-white font-semibold' : 'text-slate-400 hover:text-slate-100'
-                  }`}
+                  className={`relative py-1 transition-colors whitespace-nowrap shrink-0 ${isActive ? 'text-white font-semibold' : 'text-slate-400 hover:text-slate-100'
+                    }`}
                 >
                   {item.label}
                   {isActive && (
@@ -931,9 +902,8 @@ export default function App() {
                   key={item.id}
                   type="button"
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-left py-2 text-sm font-medium transition-colors ${
-                    activeSection === item.id ? 'text-indigo-400 font-semibold' : 'text-slate-300'
-                  }`}
+                  className={`text-left py-2 text-sm font-medium transition-colors ${activeSection === item.id ? 'text-indigo-400 font-semibold' : 'text-slate-300'
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -1292,7 +1262,7 @@ export default function App() {
             </div>
 
             {/* Interactive 3-Tab Segmented Control */}
-            <div className="inline-flex items-center p-1.5 rounded-xl bg-slate-900/90 border border-white/10 self-start">
+            <div className="flex md:inline-flex items-center gap-1 p-1.5 rounded-xl bg-slate-900/90 border border-white/10 self-start w-full md:w-auto max-w-full overflow-x-auto scroll-smooth snap-x snap-mandatory">
               {[
                 { id: 'projects' as const, label: 'Projects (4)', icon: Code2 },
                 { id: 'certificates' as const, label: 'Certificates (5)', icon: Award },
@@ -1304,12 +1274,18 @@ export default function App() {
                   <button
                     key={tab.id}
                     type="button"
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                      active
+                    onClick={(e) => {
+                      setActiveTab(tab.id);
+                      e.currentTarget.scrollIntoView({
+                        behavior: 'smooth',
+                        inline: 'center',
+                        block: 'nearest',
+                      });
+                    }}
+                    className={`snap-start px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${active
                         ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.35)]'
                         : 'text-slate-400 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-4 h-4 shrink-0" />
                     <span>{tab.label}</span>
@@ -1472,9 +1448,8 @@ export default function App() {
                 {PORTFOLIO_DATA.certificates.map((cert) => (
                   <article
                     key={cert.id}
-                    className={`group rounded-2xl bg-slate-900/55 border border-white/10 hover:border-indigo-500/45 p-6 backdrop-blur-xl flex flex-col justify-between transition-all ${
-                      cert.id === 'cert-bangkit' ? 'md:col-span-2 lg:col-span-2' : ''
-                    }`}
+                    className={`group rounded-2xl bg-slate-900/55 border border-white/10 hover:border-indigo-500/45 p-6 backdrop-blur-xl flex flex-col justify-between transition-all ${cert.id === 'cert-bangkit' ? 'md:col-span-2 lg:col-span-2' : ''
+                      }`}
                   >
                     <div>
                       {/* Certificate Preview Frame */}
@@ -1503,13 +1478,7 @@ export default function App() {
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-mono text-indigo-300 mb-2">
                         <span>{cert.issuer}</span>
                         <span aria-hidden="true" className="text-slate-600">·</span>
-                        <span className="text-slate-400">Issued: {cert.issueDate}</span>
-                        {cert.validUntil && (
-                          <>
-                            <span aria-hidden="true" className="text-slate-600">·</span>
-                            <span className="text-emerald-400/90">Valid: {cert.validUntil}</span>
-                          </>
-                        )}
+                        <span className="text-slate-400">{cert.issueDate}</span>
                       </div>
 
                       <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-2">
@@ -1534,36 +1503,24 @@ export default function App() {
                     </div>
 
                     {/* Footer Actions */}
-                    <div className="mt-6 pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <button
-                          type="button"
-                          onClick={() => handleCopyText(cert.credentialId, cert.id)}
-                          className="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
-                        >
-                          {copiedId === cert.id ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-emerald-400" />
-                              <span className="text-emerald-300">ID Copied</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copy ID</span>
-                            </>
-                          )}
-                        </button>
-
-                        <a
-                          href={cert.verifyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs font-mono text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer whitespace-nowrap"
-                        >
-                          <span>Verify</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </div>
+                    <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                      <button
+                        type="button"
+                        onClick={() => handleCopyText(cert.credentialId, cert.id)}
+                        className="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                      >
+                        {copiedId === cert.id ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="text-emerald-300">ID Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy ID</span>
+                          </>
+                        )}
+                      </button>
 
                       <button
                         type="button"
@@ -1606,11 +1563,10 @@ export default function App() {
                       key={category}
                       type="button"
                       onClick={() => setTechFilter(category)}
-                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                        techFilter === category
+                      className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${techFilter === category
                           ? 'bg-indigo-600 text-white shadow-[0_0_16px_rgba(99,102,241,0.3)]'
                           : 'bg-slate-900/75 text-slate-400 hover:text-white border border-white/10'
-                      }`}
+                        }`}
                     >
                       {category}
                     </button>
@@ -1971,11 +1927,10 @@ export default function App() {
                           key={mode.id}
                           type="button"
                           onClick={() => setProjectScreenMode(mode.id)}
-                          className={`px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
-                            projectScreenMode === mode.id
+                          className={`px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${projectScreenMode === mode.id
                               ? 'bg-indigo-600 text-white'
                               : 'text-slate-400 hover:text-white'
-                          }`}
+                            }`}
                         >
                           {mode.label}
                         </button>
@@ -2143,22 +2098,20 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setCertViewPage('primary')}
-                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                        certViewPage === 'primary'
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${certViewPage === 'primary'
                           ? 'bg-indigo-600 text-white'
                           : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
-                      }`}
+                        }`}
                     >
                       Certificate of Completion
                     </button>
                     <button
                       type="button"
                       onClick={() => setCertViewPage('secondary')}
-                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                        certViewPage === 'secondary'
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${certViewPage === 'secondary'
                           ? 'bg-indigo-600 text-white'
                           : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
-                      }`}
+                        }`}
                     >
                       {selectedCertificate.secondaryLabel || 'Transcript'}
                     </button>
@@ -2181,65 +2134,34 @@ export default function App() {
 
                 {/* Metadata & Syllabus Highlights */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-2">
-                  <div className="md:col-span-5 space-y-3 font-mono text-xs">
-                    <div>
-                      <p className="text-slate-400 mb-1">Credential ID:</p>
-                      <div className="flex items-center gap-2">
-                        <span className="text-white font-semibold select-all bg-white/5 px-2.5 py-1 rounded border border-white/10">
-                          {selectedCertificate.credentialId}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleCopyText(
-                              selectedCertificate.credentialId,
-                              `modal-${selectedCertificate.id}`
-                            )
-                          }
-                          className="px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 hover:text-white hover:bg-indigo-500/30 transition-colors cursor-pointer"
-                        >
-                          {copiedId === `modal-${selectedCertificate.id}` ? 'Copied!' : 'Copy'}
-                        </button>
-                      </div>
-                    </div>
-
-                    {selectedCertificate.validUntil && (
-                      <div>
-                        <p className="text-slate-400 mb-0.5">Status Masa Berlaku:</p>
-                        <span className="text-emerald-400 font-semibold">
-                          Berlaku hingga {selectedCertificate.validUntil}
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="pt-2">
-                      <a
-                        href={selectedCertificate.verifyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-all shadow-[0_0_16px_rgba(99,102,241,0.3)]"
+                  <div className="md:col-span-5 space-y-2 font-mono text-xs">
+                    <p className="text-slate-400">Credential ID:</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-semibold select-all">
+                        {selectedCertificate.credentialId}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleCopyText(
+                            selectedCertificate.credentialId,
+                            `modal-${selectedCertificate.id}`
+                          )
+                        }
+                        className="text-indigo-400 hover:text-indigo-300 cursor-pointer"
                       >
-                        <span>Verifikasi Kredensial Resmi</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                        {copiedId === `modal-${selectedCertificate.id}` ? 'Copied!' : 'Copy'}
+                      </button>
                     </div>
                   </div>
 
                   <div className="md:col-span-7">
                     <p className="text-xs font-mono text-slate-400 mb-2">
-                      Verified Curriculum &amp; Competencies:
+                      Verified Modules &amp; Competencies:
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
-                      {selectedCertificate.highlights.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-2 bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.06]"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
-                          <span className="leading-snug">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                      {selectedCertificate.highlights.join(' · ')}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2348,11 +2270,10 @@ export default function App() {
                       key={idx}
                       type="button"
                       onClick={() => setCvSlideIndex(idx)}
-                      className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer shrink-0 ${
-                        cvSlideIndex === idx
+                      className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer shrink-0 ${cvSlideIndex === idx
                           ? 'bg-indigo-600 text-white font-semibold'
                           : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
-                      }`}
+                        }`}
                     >
                       {String(idx + 1).padStart(2, '0')}
                     </button>
