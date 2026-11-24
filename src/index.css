@@ -1,41 +1,366 @@
+@import "./engine/scrollcraft.css" layer(base);
 @import "tailwindcss";
 
+/* ============================================================================
+   DESIGN SYSTEM TOKENS (ScrollCraft Engine + UI/UX Pro Max MASTER.md)
+   Untouched engine in src/engine/scrollcraft.css; semantic tokens refined here.
+   ========================================================================== */
+:root {
+  /* Semantic Obsidian Palette (OLED dark + Android emerald, >= 4.5:1 text contrast) */
+  --sc-canvas: #0b0c0f;
+  --sc-surface: #13151b;
+  --sc-surface-raised: #1b1e26;
+  --sc-ink: #f4f2ec;
+  --sc-ink-soft: #a4a8b3;
+  --sc-accent: #3ddc84;
+  --sc-accent-ink: #07130c;
+
+  --sc-hairline: color-mix(in oklab, var(--sc-ink) 12%, transparent);
+  --sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 24%, transparent);
+
+  /* Typography */
+  --sc-font-display: "Outfit", system-ui, -apple-system, sans-serif;
+  --sc-font-text: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --sc-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* 4/8px Spacing Scale (UI/UX Pro Max MASTER.md) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Fixed Floating Pill Clearance (WCAG 2.2 AA focus-not-obscured) */
+  --nav-clearance: 5.5rem;
+
+  --sc-shadow-color: 220 35% 2%;
+  --sc-r-sm: 6px;
+  --sc-r-md: 12px;
+  --sc-r-lg: 20px;
+  --sc-r-pill: 999px;
+}
+
 @layer base {
-  :root {
-    --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
-
   html {
-    font-family: var(--font-sans);
-    background-color: #030014;
-    color: #f8fafc;
+    background-color: var(--sc-canvas);
+    color: var(--sc-ink);
+    font-family: var(--sc-font-text);
     scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-clearance);
   }
 
-  h1, h2, h3, h4, .font-display {
-    font-family: var(--font-display);
+  body {
+    background-color: var(--sc-canvas);
+    color: var(--sc-ink);
+    letter-spacing: 0.004em;
+    line-height: 1.64;
+    overflow-x: clip;
   }
 
-  .font-mono {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--sc-font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    touch-action: manipulation;
   }
 }
 
-/* Custom sleek dark scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Keyboard Skip-to-Content Link (UI/UX Pro Max Accessibility CRITICAL) */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background-color: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: top 160ms var(--sc-ease-out);
 }
-::-webkit-scrollbar-track {
-  background: #030014;
+
+.skip-link:focus {
+  top: 1rem;
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.28);
-  border-radius: 9999px;
+
+/* ============================================================================
+   HARD-CUT CHAPTER GROUNDS (Chaptered Editorial)
+   ========================================================================== */
+.chapter--obsidian {
+  background-color: #0b0c0f;
+  color: var(--sc-ink);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.5);
+
+.chapter--graphite {
+  background-color: #111319;
+  color: var(--sc-ink);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+.chapter--studio {
+  background-color: #090a0e;
+  color: var(--sc-ink);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+/* Hard-cut archival paper chapter for verified credentials */
+.chapter--paper {
+  --sc-canvas: #efece5;
+  --sc-surface: #e5e0d6;
+  --sc-surface-raised: #f7f4ee;
+  --sc-ink: #121418;
+  --sc-ink-soft: #484d57;
+  --sc-accent: #0b7a42;
+  --sc-accent-ink: #f7f4ee;
+  --sc-hairline: color-mix(in oklab, #121418 14%, transparent);
+  --sc-hairline-strong: color-mix(in oklab, #121418 26%, transparent);
+  --sc-shadow-color: 35 18% 20%;
+  --sc-edge: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  background-color: var(--sc-canvas);
+  color: var(--sc-ink);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+/* ============================================================================
+   FLOATING PILL NAVIGATION
+   ========================================================================== */
+.floating-pill-shell {
+  background-color: rgba(15, 17, 23, 0.95);
+  border: 1px solid rgba(244, 242, 236, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 242, 236, 0.14),
+    0 14px 36px -10px rgba(0, 0, 0, 0.78),
+    0 2px 8px rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  transition:
+    background-color 200ms var(--sc-ease-out),
+    border-color 200ms var(--sc-ease-out),
+    box-shadow 200ms var(--sc-ease-out);
+}
+
+.floating-pill-shell--over-paper {
+  background-color: rgba(15, 17, 23, 0.98);
+  border-color: rgba(18, 20, 24, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 242, 236, 0.14),
+    0 16px 36px -12px rgba(18, 20, 24, 0.36);
+}
+
+.floating-pill-drawer {
+  background-color: #12141b;
+  border: 1px solid rgba(244, 242, 236, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 242, 236, 0.12),
+    0 24px 56px -12px rgba(0, 0, 0, 0.88);
+}
+
+.floating-pill-btn {
+  transition:
+    background-color 160ms var(--sc-ease-out),
+    color 160ms var(--sc-ease-out),
+    transform 120ms var(--sc-ease-out);
+}
+
+.floating-pill-btn:active {
+  transform: scale(0.97);
+}
+
+/* ============================================================================
+   DIMENSIONAL HERO PLANES (hero-depth.md)
+   ========================================================================== */
+.hero-headline {
+  font-family: var(--sc-font-display);
+  font-size: clamp(2.8rem, 1.8rem + 4.4vw, 5.3rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.036em;
+  color: var(--sc-ink);
+}
+
+@media (max-width: 700px) {
+  .hero-headline {
+    font-size: clamp(2.15rem, 1.55rem + 3.2vw, 2.85rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+  }
+}
+
+.hero-depth-stage {
+  --ptr-x: 0;
+  --ptr-y: 0;
+  position: relative;
+}
+
+.hero-plane-bg {
+  transform: translate3d(calc(var(--ptr-x) * -10px), calc(var(--ptr-y) * -8px), 0);
+  will-change: transform;
+}
+
+.hero-plane-subject {
+  transform: translate3d(calc(var(--ptr-x) * 6px), calc(var(--ptr-y) * 5px), 0);
+  will-change: transform;
+}
+
+.hero-plane-fore {
+  transform: translate3d(calc(var(--ptr-x) * 14px), calc(var(--ptr-y) * 10px), 0);
+  will-change: transform;
+}
+
+.editorial-grid-plate {
+  background-image:
+    linear-gradient(to right, rgba(244, 242, 236, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 242, 236, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ============================================================================
+   SIGNATURE MOVE: ANDROID BUILD INSPECTOR
+   Compact, aligned sticky workbench with scroll/manual curtain wipe + SVG traces
+   ========================================================================== */
+.inspector-bezel {
+  background: linear-gradient(155deg, #272c36 0%, #13151b 48%, #0a0b0e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.65),
+    0 20px 48px -14px rgba(0, 0, 0, 0.72),
+    0 6px 16px -6px rgba(0, 0, 0, 0.5);
+}
+
+.inspector-dashboard-curtain {
+  clip-path: inset(calc((1 - var(--wipe-p, 0)) * 100%) 0 0 0);
+  will-change: clip-path;
+}
+
+.inspector-scanline {
+  top: calc((1 - var(--wipe-p, 0)) * 100%);
+  opacity: calc(
+    clamp(0, var(--wipe-p, 0) * 12, 1) * clamp(0, (1 - var(--wipe-p, 0)) * 12, 1)
+  );
+  will-change: top, opacity;
+}
+
+.spec-trace-path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: calc(220 * (1 - clamp(0, (var(--wipe-p, 0) - var(--trace-delay, 0)) / 0.55, 1)));
+}
+
+/* Custom emerald range scrubber for accessible manual curtain inspection */
+.inspector-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(244, 242, 236, 0.16);
+  cursor: pointer;
+}
+
+.inspector-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #3ddc84;
+  border: 2px solid #07130c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.inspector-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #3ddc84;
+  border: 2px solid #07130c;
+}
+
+/* Editorial tactile surfaces & buttons */
+.surface-plate {
+  background-color: var(--sc-surface);
+  border: 1px solid var(--sc-hairline);
+  box-shadow: var(--sc-edge), var(--sc-e1);
+}
+
+.surface-plate-elevated {
+  background-color: var(--sc-surface);
+  border: 1px solid var(--sc-hairline-strong);
+  box-shadow: var(--sc-edge), var(--sc-e2);
+}
+
+.btn-primary-emerald {
+  background-color: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  font-weight: 600;
+  transition:
+    filter 150ms var(--sc-ease-out),
+    transform 120ms var(--sc-ease-out);
+}
+
+.btn-primary-emerald:hover {
+  filter: brightness(1.06);
+}
+
+.btn-primary-emerald:active {
+  transform: scale(0.97);
+}
+
+.btn-hairline {
+  background-color: transparent;
+  color: var(--sc-ink);
+  border: 1px solid var(--sc-hairline-strong);
+  transition:
+    background-color 150ms var(--sc-ease-out),
+    border-color 150ms var(--sc-ease-out),
+    transform 120ms var(--sc-ease-out);
+}
+
+.btn-hairline:hover {
+  background-color: color-mix(in oklab, var(--sc-ink) 7%, transparent);
+  border-color: color-mix(in oklab, var(--sc-ink) 36%, transparent);
+}
+
+.btn-hairline:active {
+  transform: scale(0.97);
+}
+
+/* ============================================================================
+   REDUCED MOTION GUARANTEES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-plane-bg,
+  .hero-plane-subject,
+  .hero-plane-fore {
+    transform: none !important;
+  }
+
+  .inspector-dashboard-curtain {
+    clip-path: none !important;
+  }
+
+  .inspector-scanline {
+    display: none;
+  }
+
+  .spec-trace-path {
+    stroke-dashoffset: 0 !important;
+  }
 }

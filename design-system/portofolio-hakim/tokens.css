@@ -1,0 +1,34 @@
+/* Design Tokens - Auto-generated */
+/* Do not edit directly - modify tokens.json instead */
+
+/* === PRIMITIVES === */
+:root {
+
+}
+
+/* === SEMANTIC === */
+:root {
+  --color-primary: #1E293B;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #334155;
+  --color-on-secondary: #FFFFFF;
+  --color-accent: #22C55E;
+  --color-on-accent: #0F172A;
+  --color-background: #0F172A;
+  --color-foreground: #F8FAFC;
+  --color-card: #1B2336;
+  --color-card-foreground: #F8FAFC;
+  --color-muted: #272F42;
+  --color-muted-foreground: #94A3B8;
+  --color-border: #475569;
+  --color-destructive: #EF4444;
+  --color-on-destructive: #000000;
+  --color-ring: #FFFFFF;
+  --font-heading: "JetBrains Mono", monospace;
+  --font-body: "IBM Plex Sans", sans-serif;
+}
+
+/* === COMPONENTS === */
+:root {
+
+}
